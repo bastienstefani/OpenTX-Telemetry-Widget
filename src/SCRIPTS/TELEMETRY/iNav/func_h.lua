@@ -1,5 +1,8 @@
 local config, data, modes, dir, SMLCD, FILE_PATH, text, line, rect, fill, frmt, opts = ...
 
+-- EdgeTX 2.11+ renamed the bitmap library to "bitmap"; the "Bitmap" alias is scheduled for removal in EdgeTX 3
+local Bitmap = bitmap or Bitmap
+
 local OYELLOW = data.RGB(255, 220, 16) -- common across ETX/OTX
 local DEGSYM = data.etx and "°" or "@"
 
@@ -126,7 +129,7 @@ icons.home = {
 icons.fpv = Bitmap.open(FILE_PATH .. "pics/fpv.png")
 icons.bg = Bitmap.open(FILE_PATH .. (data.nv and "pics/bgnv.png" or "pics/bg.png"))
 icons.roll = Bitmap.open(FILE_PATH .. "pics/roll.png")
-icons.fg = Bitmap.open(FILE_PATH .. "pics/fg" .. config[30].v .. ".png")
+icons.fg = Bitmap.open(FILE_PATH .. "pics/fg" .. math.floor(config[30].v) .. ".png")
 
 data.hcurx_id = getFieldInfo("ail").id
 data.hcury_id = getFieldInfo("ele").id
@@ -218,7 +221,7 @@ end
 
 function data.menu(prev)
 	if config[30].v ~= prev then
-		icons.fg = Bitmap.open(FILE_PATH .. "pics/fg" .. config[30].v .. ".png")
+		icons.fg = Bitmap.open(FILE_PATH .. "pics/fg" .. math.floor(config[30].v) .. ".png")
 	end
 
 	-- Aircraft symbol preview

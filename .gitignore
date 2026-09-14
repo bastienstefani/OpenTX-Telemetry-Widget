@@ -25,3 +25,6 @@ luac.out
 
 # MacOS files
 .DS_Store
+obj-etx/
+3rdparty/lua-5.3.6/src/lua
+3rdparty/lua-5.3.6/src/luac

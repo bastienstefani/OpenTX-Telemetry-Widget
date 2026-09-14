@@ -180,10 +180,16 @@ local function view(data, config, units, lang, event, gpsDegMin, getTelemetryId,
 	   local i = config2[z].i == nil and 1 or config2[z].i
 	   if event == EVT_VIRTUAL_MENU or event == EVT_EXIT_BREAK then
 	      data.configSelect = 0
-	   elseif edit_event == 1 then
-	      config[z].v = math.min(math.floor(config[z].v * 10 + i * 10) * 0.1, config[z].x == nil and 1 or config[z].x)
-	   elseif edit_event == 2 then
-	      config[z].v =math.max(math.floor(config[z].v * 10 - i * 10) * 0.1, config2[z].m == nil and 0 or config2[z].m)
+	   elseif edit_event ~= 0 then
+	      -- Integer options stay integers (Lua 5.3 on EdgeTX 2.11+ prints floats as "1.0"),
+	      -- decimal options are rounded to 0.1
+	      local v = edit_event == 1 and config[z].v + i or config[z].v - i
+	      v = config[z].d == nil and math.floor(v + 0.5) or math.floor(v * 10 + 0.5) * 0.1
+	      if edit_event == 1 then
+		 config[z].v = math.min(v, config[z].x == nil and 1 or config[z].x)
+	      else
+		 config[z].v = math.max(v, config2[z].m == nil and 0 or config2[z].m)
+	      end
 	   end
 
 		-- Special cases
