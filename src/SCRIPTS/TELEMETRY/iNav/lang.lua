@@ -2,11 +2,12 @@ local modes, labels, data, FILE_PATH, env = ...
 local lang
 
 if data.lang ~= "en" then
-	local tmp = FILE_PATH .. "lang_" .. data.lang .. ".luac"
-	local fh = io.open(tmp)
+	local tmp = FILE_PATH .. "lang_" .. data.lang
+	-- Either the compiled or the source file may be present (EdgeTX compiles sources on the radio)
+	local fh = io.open(tmp .. ".luac") or io.open(tmp .. ".lua")
 	if fh ~= nil then
 		io.close(fh)
-		lang = loadScript(tmp, env)(modes, labels)
+		lang = loadScript(tmp .. ".luac", env)(modes, labels)
 		collectgarbage()
 	end
 end

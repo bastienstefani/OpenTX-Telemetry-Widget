@@ -63,7 +63,7 @@ Supported environments are given below, older versions may also work but are uns
 
 * [INAV v6.0+](https://github.com/iNavFlight/inav/releases) running on your flight controller.
 * [OpenTX v2.3.14+](http://www.open-tx.org/) running on Taranis Q X7/Q X7S, X9D/X9D+, X9E, X9 Lite, X-Lite/X-Lite Pro, Horus X10/X10S or X12S
-* [EdgeTX v2.8.0+](https://edgetx.org/) running on a [supported radio](https://github.com/EdgeTX/edgetx.github.io/wiki/Frequently-Asked-Questions).
+* [EdgeTX v2.8.0+](https://edgetx.org/) running on a [supported radio](https://github.com/EdgeTX/edgetx.github.io/wiki/Frequently-Asked-Questions), including EdgeTX 2.11, 2.12 and 3.x (Lua 5.3). See [download options](docs/Getting-Started.md#download-options) to pick the right package for your firmware.
 * FrSky X, R9 or D series telemetry receiver: X4RSB, X8R, XSR, R-XSR, XSR-M, XSR-E, RX4R, RX6R, R9, R9 Slim, R9 Slim+, R9 Mini, R9 MM, D8R-II plus, D8R-XP, D4R-II, etc. or any Crossfire receiver: Micro, Nano, Diversity, ELRS etc.
 * GPS - On the aircraft.
 

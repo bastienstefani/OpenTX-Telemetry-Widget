@@ -8,7 +8,7 @@ if fh ~= nil then
    for i = 1, #config do
       local tmp = io.read(fh, config[i].c)
       if tmp ~= "" then
-	 config[i].v = config[i].d == nil and math.min(tonumber(tmp), config[i].x == nil and 1 or config[i].x) or tmp * 0.1
+	 config[i].v = config[i].d == nil and math.min(math.floor(tonumber(tmp)), config[i].x == nil and 1 or config[i].x) or tmp * 0.1
       end
    end
    io.close(fh)

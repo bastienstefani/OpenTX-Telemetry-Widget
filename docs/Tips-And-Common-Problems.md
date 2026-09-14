@@ -29,6 +29,18 @@ For issues concerning discovery or display of sensor information, **please provi
 
 > **NOTE:** If trying to run Betaflight Tx lua script for VTx control, you can't run Betaflight Tx lua script and Lua Telemetry at the same time.  Instead, change VTx settings by using the [OSD menu](https://github.com/iNavFlight/inav/master/docs/Controls.md)
 
+## Common EdgeTX 2.11+ / EdgeTX 3.x Errors
+
+* `version mismatch in precompiled chunk`
+* `bad binary format` / blank widget after a firmware upgrade
+* Configuration values shown as `1.0`, `400.0ft` or the aircraft symbol not found after changing it
+
+### Solution
+
+* EdgeTX 2.11 and later use Lua 5.3, earlier firmwares use Lua 5.2. Pre-compiled `.luac` files are not interchangeable between the two
+* Delete `SCRIPTS/TELEMETRY/iNav` and `WIDGETS/iNav` from the SD card and install the `LuaTelemetry_vX.Y_edgetx.zip` package (see [Download Options](../Getting-Started/#download-options))
+* Lua Telemetry v2.4 or later is required on EdgeTX 2.11+; the display and menu code was updated for Lua 5.3 number handling
+
 ## Common Horus Errors
 
 * **disabled** error on widget

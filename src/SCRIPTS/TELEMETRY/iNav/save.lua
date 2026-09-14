@@ -13,7 +13,7 @@ if fh ~= nil then
 		if config[i].d == nil then
 			io.write(fh, frmt("%0" .. config[i].c .. "d", max(config[i].v, 0)))
 		else
-			io.write(fh, floor(max(config[i].v, 0) * 10))
+			io.write(fh, floor(max(config[i].v, 0) * 10 + 0.5))
 		end
 	end
 	io.close(fh)

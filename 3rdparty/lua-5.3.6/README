@@ -1,0 +1,15 @@
+Lua 5.3.6 (https://www.lua.org, MIT licence) as bundled with Lua Telemetry.
+
+This copy is used to pre-compile the Lua Telemetry scripts into bytecode that
+loads on EdgeTX 2.11 and later (including EdgeTX 3.x), which run Lua 5.3.
+OpenTX and EdgeTX up to 2.10 run Lua 5.2 and use ../lua-5.2.4 instead.
+
+Local changes compared to the upstream 5.3.6 sources:
+
+* src/ldump.c and src/lundump.c: the bytecode header stores/checks a 4-byte
+  "size_t" field instead of the host size_t, exactly as EdgeTX does, so that
+  bytecode produced on a 64-bit host loads on the radio.
+* src/luac.c: minimal replacement for the official luac (only "-s" and "-o"
+  are supported).
+* src/Makefile: builds with -DLUA_32BITS -DLUA_COMPAT_5_2 -DLUA_FLOORN2I=1,
+  the configuration used by the EdgeTX firmware.

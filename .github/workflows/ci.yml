@@ -26,7 +26,7 @@ jobs:
           echo "BUILD_SUFFIX=${BUILD_SUFFIX}" >> $GITHUB_ENV
           echo "BUILD_NAME=LuaTelemetry-${VERSION}-${BUILD_SUFFIX}" >> $GITHUB_ENV
       - name: Build dist
-        run: make dist dist-lua
+        run: make dist
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -37,5 +37,8 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Run
-        run: true
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential
+      - name: Smoke test scripts with Lua 5.2 (OpenTX) and Lua 5.3 (EdgeTX 2.11+/3.x)
+        run: make test

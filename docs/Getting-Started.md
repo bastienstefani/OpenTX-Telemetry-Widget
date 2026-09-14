@@ -31,7 +31,9 @@ Don't be too concerned about the length of these instructions. The first two sec
 
 #### Install/Setup Lua Telemetry on Transmitter
 
-1. Download the latest [LuaTelemetry.zip](https://github.com/iNavFlight/OpenTX-Telemetry-Widget/releases/latest) file (Note: **NOT** the source code)
+1. Download the package matching your firmware from the [latest release](https://github.com/iNavFlight/OpenTX-Telemetry-Widget/releases/latest) (Note: **NOT** the GitHub "Source code" archives), see [Download Options](#download-options):
+    * `LuaTelemetry_vX.Y_edgetx.zip` for EdgeTX 2.11 and later (including EdgeTX 3.x)
+    * `LuaTelemetry_vX.Y.zip` for OpenTX 2.3 and EdgeTX up to 2.10
 1. Copy the contents of the ZIP file (`SCRIPTS` and `WIDGETS` folders) to the transmitter's SD card's root
     * Taranis:
         1. In model setup, page to `DISPLAY`
@@ -45,7 +47,7 @@ Don't be too concerned about the length of these instructions. The first two sec
         1. Press `Enter` till a menu appears and select `Select widget`
         1. Scroll to the `iNav` widget and press `Enter`
         1. Optionally (while still selecting the `iNAV` script), long-press `Enter`, select `Widget settings` where you can set your theme's `Text` color and `Warning` color
-    * RadioMaster TX16S and other color touchscreen radios (EdgeTX v2.11+):
+    * RadioMaster TX16S and other color touchscreen radios (EdgeTX v2.11, v2.12 and v3.x):
         1. Long-press `TELE` to access the user interface/views layout
         1. Select the desired view (or create a new one)
         1. Choose the `App Mode` layout (not `Full screen`) — this allows the widget to receive key and touch events and automatically hides the top bar and sliders/trims
@@ -64,13 +66,15 @@ Don't be too concerned about the length of these instructions. The first two sec
 1. Press `EXIT` or `RTN` several times to exit (back icon on Nirvana)
 
 ### Download Options
-When [downloading INAV Lua Telemetry](https://github.com/iNavFlight/OpenTX-Telemetry-Widget/releases/latest).
+When [downloading INAV Lua Telemetry](https://github.com/iNavFlight/OpenTX-Telemetry-Widget/releases/latest), pick the package that matches your radio firmware. The scripts are the same in every package, only the pre-compiled form differs:
 
-* **LuaTelemetry.zip** - Taranis and Horus including sound files for all supported languages
-* **Source code** (zip) - ZIP compressed source code for this release - *not for transmitter install*
-* **Source code** (tar.gz) - Tarball format source code for this release - *not for transmitter install*
+* **LuaTelemetry_vX.Y_edgetx.zip** - pre-compiled for **EdgeTX 2.11 and later** (EdgeTX 2.11, 2.12 and 3.x run Lua 5.3). Includes all views, sound files and languages
+* **LuaTelemetry_vX.Y.zip** - pre-compiled for **OpenTX 2.3** and **EdgeTX up to 2.10** (Lua 5.2). Includes all views, sound files and languages
+* **LuaTelemetry_vX.Y_lua.zip** - plain Lua sources, works on any supported firmware. The radio compiles the scripts itself the first time the widget runs, which takes a few seconds and needs more free memory than the pre-compiled packages, so prefer one of the packages above on radios with little memory
+* **Source code** (zip / tar.gz) - GitHub source archives for this release - *not for transmitter install*
 
-If you just want to install without thinking about it, download and install the latest [LuaTelemetry.zip](https://github.com/iNavFlight/OpenTX-Telemetry-Widget/releases/latest) file which includes everything and will work on supported radios in any available language. The other download options *may* be provided in order to save a bit of SD card space on the transmitter and to keep the install clean of unneeded files.
+!!! warning
+    Pre-compiled scripts are tied to the Lua version of the firmware. Installing the OpenTX / EdgeTX 2.10 package on EdgeTX 2.11 or later fails with a `version mismatch in precompiled chunk` error (or a blank screen) because those firmwares moved from Lua 5.2 to Lua 5.3. Delete the old `SCRIPTS/TELEMETRY/iNav` and `WIDGETS/iNav` folders from the SD card before installing the EdgeTX package.
 
 
 #### Running Lua Telemetry

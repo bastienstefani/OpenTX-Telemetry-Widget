@@ -13,7 +13,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install zip build-essential
       - name: Build dist
-        run: make dist dist-lua
+        run: make dist
       - name: Upload release
         uses: svenstaro/upload-release-action@v1-release
         with:
