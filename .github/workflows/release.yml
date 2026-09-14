@@ -1,10 +1,22 @@
 name: Publish release
 
+# Runs when a version tag is pushed, or manually from the Actions tab
+# (workflow_dispatch) to create the tag and the release from the selected ref.
 on:
   push:
     tags:
       - "v*"
       - "[0-9]+.[0-9]+*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v2.4.1); created at the selected ref if it does not exist yet"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -14,11 +26,19 @@ jobs:
         run: sudo apt-get update && sudo apt-get -y install zip build-essential
       - name: Build dist
         run: make dist
-      - name: Upload release
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*.zip
-          file_glob: true
-          overwrite: true
-          tag: ${{ github.ref }}
+      - name: Test
+        run: make test
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$TAG" dist/*.zip \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "Lua Telemetry $TAG" \
+              --generate-notes
+          fi
